@@ -11,6 +11,24 @@ class Blockchain {
 
    return block; 
   }
+
+  isValidChain(chain) {
+    if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) { 
+      return false 
+    }
+
+    for (let i = 0; i < chain.length; i++) {
+      const block = chain[i];
+      const lastBlock = chain[i-1];
+
+      if (block.lastHash !== lastBlock.hash || 
+        //generate a hash of the block to check its validity in case recorded hashes have been tampered with 
+        block.hash !== Block.blockHash(block)) {
+        return false;
+      }
+    }
+
+  }
 }
 
 module.exports = Blockchain;
