@@ -33,6 +33,12 @@ class Block {
   static hash(timestamp, lastHash, data) {
     return SHA256(`${timestamp}${lastHash}${data}`).toString();
   }
+
+  //convenience function for the chain to verify hashes
+  static blockHash(block) {
+    const { timestamp, lastHash, data } = block;
+    return Block.hash(timestamp, lastHash, data);
+  }
 }
 
 module.exports = Block;

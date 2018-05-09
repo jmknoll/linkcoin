@@ -17,16 +17,19 @@ class Blockchain {
       return false 
     }
 
-    for (let i = 0; i < chain.length; i++) {
+    for (let i = 1; i < chain.length; i++) {
       const block = chain[i];
       const lastBlock = chain[i-1];
-
+      // first condition check the validity of the chain
+      // second condition checks the validity of the block
+      // if either has been tampered with, the whole condition will evaluate to true and return false for the function
+      // true || false == true
       if (block.lastHash !== lastBlock.hash || 
-        //generate a hash of the block to check its validity in case recorded hashes have been tampered with 
         block.hash !== Block.blockHash(block)) {
         return false;
       }
     }
+    return true
 
   }
 }
